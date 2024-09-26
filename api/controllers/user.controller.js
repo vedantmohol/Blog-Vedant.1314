@@ -31,7 +31,7 @@ export const updateUser = async (req,res,next)=>{
             }
         }
             try{
-                const updateUser = await User.findByIdAndUpdate(req.params.userId,{
+                const updatedUser = await User.findByIdAndUpdate(req.params.userId,{
                     $set: {
                         username: req.body.username,
                         email: req.body.email,
@@ -39,7 +39,7 @@ export const updateUser = async (req,res,next)=>{
                         password: req.body.password,
                     },
                 },{ new : true} );
-                const {password , ...rest} = updateUser._doc;
+                const {password , ...rest} = updatedUser._doc;
                 res.status(200).json(rest);
             }
             catch(error){
@@ -58,7 +58,7 @@ export const deleteUser = async(req,res,next)=>{
     catch(error){
         next(error); 
     }
-}
+};
 
 export const signout = (req,res,next) =>{
     try{
