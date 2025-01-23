@@ -113,6 +113,11 @@ function UpdatePost() {
                     <option value="javascript">Javascript</option>
                     <option value="reactjs">React.js</option>
                     <option value="nextjs">Next.js</option>
+                    <option value="compilerdesign">Compiler Design</option>
+                    <option value="computernetwork">Computer Network</option>
+                    <option value="artificialintelligence">Artificial Intelligence</option>
+                    <option value="databasemanagementsystem">Database Management System</option>
+                    <option value="other">Other</option>
                 </Select>
             </div>
             <div className='flex gap-4 items-center justify-between border-4 border-teal-500 border-dotted p-3'>

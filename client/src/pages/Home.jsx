@@ -7,13 +7,14 @@ export default function Home() {
   const [posts,setPosts] = useState([]);
 
   useEffect(()=>{
-    const fetchPosts = async () =>{
+    const fetchPosts = async () => {
       const res = await fetch('/api/post/getPosts');
       const data = await res.json();
       setPosts(data.posts);
-    }
+    };
     fetchPosts();
-  })
+  },[]);
+
   return (
     <div>
       <div className='flex flex-col gap-6 lg:p-28 px-3 p-28 max-w-6xl mx-auto'>
@@ -30,9 +31,9 @@ export default function Home() {
             <div className='flex flex-col gap-6'>
               <h2 className='text-2xl font-semibold text-center'>Recent Posts</h2>
               <div className='flex flex-wrap gap-4'>
-                {posts.map((post)=>{
-                  <PostCard key={post.id} post={post}/>
-                })}
+                {posts.map((post)=>(
+                  <PostCard key={post._id} post={post}/>
+                ))}
               </div>
               <Link to={'/search'} className='text-lg text-teal-500 hover:underline text-center'>View all posts</Link>
             </div>

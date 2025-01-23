@@ -19,7 +19,7 @@ function DashboardComp() {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const res = await fetch('/api/user/getusers?limit=5');
+        const res = await fetch(`/api/user/getusers?limit=5`);
         const data = await res.json();
         if(res.ok) {
           setUsers(data.users);
@@ -60,8 +60,8 @@ function DashboardComp() {
     };
     if (currentUser.isAdmin) {
       fetchUsers();
-      fetchComments();
       fetchPosts();
+      fetchComments();
     }
   }, [currentUser]);
 
@@ -122,7 +122,7 @@ function DashboardComp() {
             <div className="flex justify-between p-3 text-sm font-semibold">
                 <h1 className="text-center p-2">Recent Users</h1>
                 <Button outline gradientDuoTone='purpleToPink'>
-                    <Link to={"/dashboard?tab=users"}>See all</Link>
+                    <Link to={'/dashboard?tab=users'}>See all</Link>
                 </Button>
             </div>
             <Table hoverable>
@@ -130,7 +130,7 @@ function DashboardComp() {
                     <Table.HeadCell>User Image</Table.HeadCell>
                     <Table.HeadCell>Username</Table.HeadCell>
                 </Table.Head>
-                {users && users.map((user) =>{
+                {users && users.map((user) =>(
                     <Table.Body key={user._id} className="divide-y">
                         <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
                             <Table.Cell>
@@ -141,7 +141,7 @@ function DashboardComp() {
                             </Table.Cell>
                         </Table.Row>
                     </Table.Body>
-                })}
+                ))}
             </Table>
         </div>
         <div className="flex flex-col w-full md:w-auto shadow-md p-2 rounded-md dark:bg-gray-800">
@@ -156,7 +156,7 @@ function DashboardComp() {
                     <Table.HeadCell>Comment Content</Table.HeadCell>
                     <Table.HeadCell>Likes</Table.HeadCell>
                 </Table.Head>
-                {comments && comments.map((comment) =>{
+                {comments && comments.map((comment) => (
                     <Table.Body key={comment._id} className="divide-y">
                         <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
                             <Table.Cell className="w-96">
@@ -167,7 +167,7 @@ function DashboardComp() {
                             </Table.Cell>
                         </Table.Row>
                     </Table.Body>
-                })}
+                ))}
             </Table>
         </div>
         <div className="flex flex-col w-full md:w-auto shadow-md p-2 rounded-md dark:bg-gray-800">
@@ -183,7 +183,7 @@ function DashboardComp() {
                     <Table.HeadCell>Post Title</Table.HeadCell>
                     <Table.HeadCell>Category</Table.HeadCell>
                 </Table.Head>
-                {posts && posts.map((post) =>{
+                {posts && posts.map((post) =>(
                     <Table.Body key={post._id} className="divide-y">
                         <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
                             <Table.Cell>
@@ -193,7 +193,7 @@ function DashboardComp() {
                             <Table.Cell className="w-5">{post.category}</Table.Cell>
                         </Table.Row>
                     </Table.Body>
-                })}
+                ))}
             </Table>
         </div>
       </div>
