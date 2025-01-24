@@ -91,6 +91,7 @@ function CreatePost() {
                     <option value="computernetwork">Computer Network</option>
                     <option value="artificialintelligence">Artificial Intelligence</option>
                     <option value="databasemanagementsystem">Database Management System</option>
+                    <option value="cloudcomputing">Cloud Computing</option>
                     <option value="other">Other</option>
                 </Select>
             </div>

@@ -140,6 +140,7 @@ function Search() {
               <option value="databasemanagementsystem">
                 Database Management System
               </option>
+              <option value="cloudcomputing">Cloud Computing</option>
               <option value="other">Other</option>
             </Select>
           </div>
