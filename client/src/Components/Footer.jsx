@@ -1,72 +1,148 @@
 import React from "react";
-import { Footer } from "flowbite-react";
 import { Link } from "react-router-dom";
-import {BsFacebook, BsGithub, BsInstagram, BsLinkedin, BsTwitter} from 'react-icons/bs'; 
+import {
+  BsInstagram,
+  BsTwitter,
+  BsGithub,
+  BsLinkedin,
+} from "react-icons/bs";
 
 function FooterCom() {
   return (
-    <Footer container className="border border-t-8 border-teal-500">
-      <div className="w-full max-w-7xl mx-auto">
-        <div className="grid w-full justify-between sm:flex md:grid-cols-1">
-          <div className="mt-5">
+    <footer className="border-t-8 border-teal-500 bg-white dark:bg-gray-900 text-gray-600 dark:text-gray-300">
+      <div className="max-w-7xl mx-auto px-4 py-8">
+        {/* Top Section */}
+        <div className="grid grid-cols-1 sm:flex sm:justify-between gap-6">
+          {/* Logo */}
+          <div className="mt-2">
             <Link
               to="/"
-              className="self-center whitespace-nowrap text-lg sm:text-xl font-semibold dark:text-white"
+              className="text-lg sm:text-xl font-semibold whitespace-nowrap dark:text-white"
             >
               <span className="px-2 py-1 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 rounded-lg text-white">
                 V
-              </span>
+              </span>{" "}
               Blog
             </Link>
           </div>
-          <div className="grid grid-cols-2 gap-8 mt-4 sm:grid-cols-3 sm:gap-6">
+
+          {/* Footer Links */}
+          <div className="grid grid-cols-2 gap-8 sm:grid-cols-3 sm:gap-6">
+            {/* ABOUT */}
             <div>
-            <Footer.Title title="ABOUT"/>
-            <Footer.LinkGroup col>
-                <Footer.Link href="https://github.com/vedantmohol" target="_blank" rel='noopener noreferrer'>
+              <h2 className="mb-4 text-sm font-semibold uppercase">About</h2>
+              <ul className="space-y-2 text-sm">
+                <li>
+                  <a
+                    href="https://github.com/vedantmohol"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="hover:underline"
+                  >
                     MERN Projects
-                </Footer.Link>
-                <Footer.Link href="/about">
+                  </a>
+                </li>
+                <li>
+                  <Link to="/about" className="hover:underline">
                     V Blog
-                </Footer.Link>
-            </Footer.LinkGroup>
+                  </Link>
+                </li>
+              </ul>
             </div>
             <div>
-            <Footer.Title title="FOLLOW ME"/>
-            <Footer.LinkGroup col>
-                <Footer.Link href="https://github.com/vedantmohol" target="_blank" rel='noopener noreferrer'>
-                    Github
-                </Footer.Link>
-                <Footer.Link href="https://x.com/vedant_1314?t=uavg3rF6Isg0SiHHDd0o-Q&s=08" target="_blank" rel='noopener noreferrer'>
+              <h2 className="mb-4 text-sm font-semibold uppercase">Follow Me</h2>
+              <ul className="space-y-2 text-sm">
+                <li>
+                  <a
+                    href="https://github.com/vedantmohol"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="hover:underline"
+                  >
+                    GitHub
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://x.com/vedant_1314?t=uavg3rF6Isg0SiHHDd0o-Q&s=08"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="hover:underline"
+                  >
                     Twitter
-                </Footer.Link>
-            </Footer.LinkGroup>
-            </div> 
+                  </a>
+                </li>
+              </ul>
+            </div>
+
+            {/* LEGAL */}
             <div>
-            <Footer.Title title="LEGAL"/>
-            <Footer.LinkGroup col>
-                <Footer.Link href="#">
+              <h2 className="mb-4 text-sm font-semibold uppercase">Legal</h2>
+              <ul className="space-y-2 text-sm">
+                <li>
+                  <a href="#" className="hover:underline">
                     Privacy Policy
-                </Footer.Link>
-                <Footer.Link href="#">
-                    Terms &amp; Conditions
-                </Footer.Link>
-            </Footer.LinkGroup>
+                  </a>
+                </li>
+                <li>
+                  <a href="#" className="hover:underline">
+                    Terms & Conditions
+                  </a>
+                </li>
+              </ul>
             </div>
           </div>
         </div>
-        <Footer.Divider/>
-        <div className="w-full sm:flex sm:items-center sm:justify-between">
-            <Footer.Copyright href="#" by="V Blog" year={new Date().getFullYear()}/>
-            <div className="flex gap-6 sm:mt-0 mt-4 sm:justify-center">
-                <Footer.Icon href='https://www.instagram.com/vedant.1314' target="_blank" rel='noopener noreferrer' icon={BsInstagram}/>
-                <Footer.Icon href='https://x.com/vedant_1314?t=uavg3rF6Isg0SiHHDd0o-Q&s=08' target="_blank" rel='noopener noreferrer' icon={BsTwitter}/>
-                <Footer.Icon href='https://github.com/vedantmohol' target="_blank" rel='noopener noreferrer' icon={BsGithub}/>
-                <Footer.Icon href='https://www.linkedin.com/in/vedant-mohol-a79613271?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app' target="_blank" rel='noopener noreferrer' icon={BsLinkedin}/>
-            </div>
+
+        {/* Divider */}
+        <hr className="my-6 border-gray-300 dark:border-gray-700" />
+
+        {/* Bottom Section */}
+        <div className="flex flex-col sm:flex-row justify-between items-center">
+          <span className="text-sm">
+            © {new Date().getFullYear()}{" "}
+            <a href="#" className="hover:underline">
+              V Blog
+            </a>
+            . All rights reserved.
+          </span>
+          <div className="flex mt-4 sm:mt-0 gap-6">
+            <a
+              href="https://www.instagram.com/vedant.1314"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-gray-500 hover:text-gray-900 dark:hover:text-white text-xl"
+            >
+              <BsInstagram />
+            </a>
+            <a
+              href="https://x.com/vedant_1314?t=uavg3rF6Isg0SiHHDd0o-Q&s=08"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-gray-500 hover:text-gray-900 dark:hover:text-white text-xl"
+            >
+              <BsTwitter />
+            </a>
+            <a
+              href="https://github.com/vedantmohol"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-gray-500 hover:text-gray-900 dark:hover:text-white text-xl"
+            >
+              <BsGithub />
+            </a>
+            <a
+              href="https://www.linkedin.com/in/vedant-mohol-a79613271"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-gray-500 hover:text-gray-900 dark:hover:text-white text-xl"
+            >
+              <BsLinkedin />
+            </a>
+          </div>
         </div>
       </div>
-    </Footer>
+    </footer>
   );
 }
 
