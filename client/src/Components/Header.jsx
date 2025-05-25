@@ -67,9 +67,9 @@ export default function Header() {
           <AiOutlineSearch className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500" />
         </div>
       </form>
-      <button className='w-12 h-10 lg:hidden bg-gray-200 rounded-full flex items-center justify-center' type='button'>
+      <Link to="/search" className='w-12 h-12 lg:hidden bg-gray-200 rounded-full flex items-center justify-center' type='button'>
         <AiOutlineSearch />
-      </button>
+      </Link>
       <div className="flex gap-2 md:order-2 items-center">
         <button
           className='w-12 h-10 mt-3 sm:inline bg-gray-200 rounded-full'
