@@ -22,7 +22,7 @@ export default function Home() {
         <p className='text-gray-500 text-xs sm:text-sm'>Explore different types of blogs, articles and tutorials on Engineering related topics.</p>
       <Link to='/search' className='text-xs sm:text-sm text-teal-500 font-bold hover:underline'>View all post</Link>
       </div>
-      <div className='p-3 bg-amber-100 dark:bg-slate-700'>
+      <div className='m-3 p-3 bg-amber-100 dark:bg-slate-700'>
         <CallToAction/>
       </div>
       <div className='max-w-6xl mx-auto flex flex-col gap-8 py-7 p-3'>

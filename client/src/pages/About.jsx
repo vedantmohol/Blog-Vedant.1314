@@ -13,14 +13,16 @@ export default function About() {
               Welcome to V Blog! This blog is a personal project created by
               Vedant Mohol, a computer science student, MERN stack developer,
               and cloud computing consultant, to share his knowledge and
-              experiences through his engineering journey.I hope V Blog will
+              experiences through his engineering journey.Hope that V Blog will
               help you in some way.
             </p>
             <p>
               Here you will find regular posts covering a range of topics.
               V Blog is website where you can find some computer science related
-              concepts. Concepts such as Compiler Design, Artificial
-              Intelligence, Computer Networks, Operating Systems. 
+              concepts. Concepts such as Compiler Design, Artificial Intelligence, Data Science,
+              Internet of Things, Computer Graphics, Theory of Computation, Database Management System,
+              Computer Networks, Operating Systems, Software Design and Modeling,
+              Design and Analysis of Algorithms, Web Technology.
             </p>
             <p>
               We encourage active participation and a collaborative

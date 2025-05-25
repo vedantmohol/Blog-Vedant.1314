@@ -1,143 +1,153 @@
-import { Button, Modal, Table } from 'flowbite-react';
 import React, { useEffect, useState } from 'react';
 import { HiOutlineExclamationCircle } from 'react-icons/hi';
 import { useSelector } from 'react-redux';
-import { FaCheck , FaTimes } from 'react-icons/fa';
+import { FaCheck, FaTimes } from 'react-icons/fa';
 
 function DashUsers() {
   const { currentUser } = useSelector((state) => state.user);
-  const [users,setUsers] = useState([]);
-  const [showMore,setShowMore] = useState(true);
-  const [showModel,setShowModel] = useState(false);
-  const [userIdToDelete,setUserIdToDelete] = useState('');
+  const [users, setUsers] = useState([]);
+  const [showMore, setShowMore] = useState(true);
+  const [showModal, setShowModal] = useState(false);
+  const [userIdToDelete, setUserIdToDelete] = useState('');
 
-  useEffect(() =>{
-    const fetchUsers = async () =>{
-      try{
+  useEffect(() => {
+    const fetchUsers = async () => {
+      try {
         const res = await fetch(`/api/user/getusers`);
-        const data = await res.json()
-        if(res.ok){
-          setUsers(data.users)
-          if(data.users.length < 9){
+        const data = await res.json();
+        if (res.ok) {
+          setUsers(data.users);
+          if (data.users.length < 9) {
             setShowMore(false);
           }
         }
-        console.log(data)
-      }
-      catch(error){
-        console.log(error.message)
+      } catch (error) {
+        console.log(error.message);
       }
     };
-    if(currentUser.isAdmin){
+    if (currentUser.isAdmin) {
       fetchUsers();
     }
-  },[currentUser._id]);
+  }, [currentUser._id]);
 
-  const handleShowMore = async()=>{
+  const handleShowMore = async () => {
     const startIndex = users.length;
-    try{
-      const res = awaitftech(`/api/user/getusers?startIndex=${startIndex}`);
+    try {
+      const res = await fetch(`/api/user/getusers?startIndex=${startIndex}`);
       const data = await res.json();
-      if(res.ok){
-        setUsers((prev)=>[...prev,...data.users]);
-        if(data.users.length < 9){
+      if (res.ok) {
+        setUsers((prev) => [...prev, ...data.users]);
+        if (data.users.length < 9) {
           setShowMore(false);
         }
       }
-    }
-    catch(error){
+    } catch (error) {
       console.log(error.message);
     }
-  }
+  };
 
-  const handleDeleteUser = async () =>{
-    try{
-      const res = await fetch(`api/user/delete/${userIdToDelete}`,{
-        method:'DELETE',
-      })
+  const handleDeleteUser = async () => {
+    try {
+      const res = await fetch(`api/user/delete/${userIdToDelete}`, {
+        method: 'DELETE',
+      });
       const data = await res.json();
-      if(res.ok){
+      if (res.ok) {
         setUsers((prev) => prev.filter((user) => user._id !== userIdToDelete));
-        setShowModel(false);
-      }
-      else{
+        setShowModal(false);
+      } else {
         console.log(data.message);
       }
-    }catch(error){
+    } catch (error) {
       console.log(error.message);
     }
   };
 
   return (
-    <div className='table-auto overflow-x-scroll md:mx-auto p-3 scrollbar
-     scrollbar-track-slate-100 scrollbar-thumb-slate-300
-      dark:scrollbar-track-slate-700 dark:scrollbar-thumb-slate-500 '>
-      {currentUser.isAdmin && users.length>0 ? (
+    <div className="overflow-x-auto p-3 max-w-6xl mx-auto scrollbar scrollbar-track-slate-100 scrollbar-thumb-slate-300 dark:scrollbar-track-slate-700 dark:scrollbar-thumb-slate-500">
+      {currentUser.isAdmin && users.length > 0 ? (
         <>
-        <Table hoverable className='shadow-md'>
-          <Table.Head>
-            <Table.HeadCell>Date Created</Table.HeadCell>
-            <Table.HeadCell>User Image</Table.HeadCell>
-            <Table.HeadCell>Username</Table.HeadCell>
-            <Table.HeadCell>Email</Table.HeadCell> 
-            <Table.HeadCell>Admin</Table.HeadCell>
-            <Table.HeadCell>Delete</Table.HeadCell>            
-          </Table.Head>
-          {users.map((user)=>(
-            <Table.Body className='divide-y' key={user._id}>
-              <Table.Row className='bg-white dark:border-gray-700 dark:bg-gray-800'>
-                <Table.Cell>{new Date(user.createdAt).toLocaleDateString()}</Table.Cell>
-                <Table.Cell>
-                  <img src={user.profilePicture} alt={user.username} className='w-10 h-10 object-cover bg-gray-500 rounded-full'/>
-                </Table.Cell>
-                <Table.Cell>
-                 {user.username}
-                </Table.Cell>
-                <Table.Cell>{user.email}</Table.Cell>
-                <Table.Cell>{user.isAdmin ? (<FaCheck className="text-green-500"/>) : (<FaTimes className="text-red-500"/>)}</Table.Cell>
-                <Table.Cell>
-                  <span onClick={()=>{
-                    setShowModel(true);
-                    setUserIdToDelete(user._id);
-                  }} className='font-medium text-red-500 hover:underline cursor-pointer'>Delete</span>
-                </Table.Cell>
-                
-              </Table.Row>
-            </Table.Body>
-          ))}
-        </Table>
-        {
-          showMore && (
-            <button onClick={handleShowMore} className='w-full text-teal-500 self-center text-sm py-7'>
+          <table className="w-full table-auto border-collapse border shadow-md">
+            <thead className="bg-gray-100 dark:bg-gray-700">
+              <tr>
+                <th className="px-4 py-2 border">Date Created</th>
+                <th className="px-4 py-2 border">User Image</th>
+                <th className="px-4 py-2 border">Username</th>
+                <th className="px-4 py-2 border">Email</th>
+                <th className="px-4 py-2 border">Admin</th>
+                <th className="px-4 py-2 border">Delete</th>
+              </tr>
+            </thead>
+            <tbody>
+              {users.map((user) => (
+                <tr key={user._id} className="text-center bg-white dark:bg-gray-800 border-t">
+                  <td className="px-4 py-2 border">{new Date(user.createdAt).toLocaleDateString()}</td>
+                  <td className="px-4 py-2 border">
+                    <img src={user.profilePicture} alt={user.username} className="w-10 h-10 object-cover rounded-full mx-auto bg-gray-500" />
+                  </td>
+                  <td className="px-4 py-2 border">{user.username}</td>
+                  <td className="px-4 py-2 border">{user.email}</td>
+                  <td className="px-4 py-2 border">
+                    {user.isAdmin ? (
+                      <FaCheck className="text-green-500 inline" />
+                    ) : (
+                      <FaTimes className="text-red-500 inline" />
+                    )}
+                  </td>
+                  <td className="px-4 py-2 border">
+                    <button
+                      onClick={() => {
+                        setShowModal(true);
+                        setUserIdToDelete(user._id);
+                      }}
+                      className="text-red-500 hover:underline"
+                    >
+                      Delete
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+          {showMore && (
+            <button onClick={handleShowMore} className="w-full text-teal-500 text-sm py-4">
               Show More
             </button>
-          )
-        }
+          )}
         </>
       ) : (
-        <p>You have no users yet!</p>
+        <p className="text-center text-gray-600 dark:text-gray-300">You have no users yet!</p>
       )}
-      <Modal show={showModel} onClose={()=> setShowModel(false)} popup size='md'>
-        <Modal.Header/>
-        <Modal.Body>
-          <div className='text-center'>
-            <HiOutlineExclamationCircle className='h-14 w-14 text-gray-400 dark:text-gray-200 mb-4 mx-auto'/>
-            <h3 className='mb-5 text-lg text-gray-500 dark:text-gray-400'>
-              Are you sure you want to delete this user?
-            </h3>
-            <div className='flex justify-center gap-4'>
-              <Button color='failure' onClick={handleDeleteUser}>
-                Yes, I'm sure
-              </Button>
-              <Button color='gray' onClick={() => setShowModel(false)}>
-                No, cancel
-              </Button>
+
+      {/* Modal */}
+      {showModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 p-4">
+          <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg max-w-md w-full p-6">
+            <div className="text-center">
+              <HiOutlineExclamationCircle className="h-14 w-14 text-gray-400 dark:text-gray-200 mb-4 mx-auto" />
+              <h3 className="mb-5 text-lg text-gray-700 dark:text-gray-300">
+                Are you sure you want to delete this user?
+              </h3>
+              <div className="flex justify-center gap-4">
+                <button
+                  onClick={handleDeleteUser}
+                  className="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700"
+                >
+                  Yes, I'm sure
+                </button>
+                <button
+                  onClick={() => setShowModal(false)}
+                  className="px-4 py-2 bg-gray-300 text-gray-700 rounded hover:bg-gray-400 dark:bg-gray-600 dark:text-gray-200"
+                >
+                  No, cancel
+                </button>
+              </div>
             </div>
           </div>
-        </Modal.Body>
-      </Modal>
+        </div>
+      )}
     </div>
   );
 }
 
-export default DashUsers
+export default DashUsers;

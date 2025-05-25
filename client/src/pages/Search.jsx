@@ -1,4 +1,3 @@
-import { Button, Select, TextInput } from "flowbite-react";
 import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import PostCard from "../Components/PostCard";
@@ -10,7 +9,6 @@ function Search() {
     category: "uncategorized",
   });
 
-  console.log(sidebarData);
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(false);
   const [showMore, setShowMore] = useState(false);
@@ -39,32 +37,17 @@ function Search() {
         setLoading(false);
         return;
       }
-      if (res.ok) {
-        const data = await res.json();
-        setPosts(data.posts);
-        setLoading(false);
-        if (data.posts.length === 9) {
-          setShowMore(true);
-        } else {
-          setShowMore(false);
-        }
-      }
+      const data = await res.json();
+      setPosts(data.posts);
+      setLoading(false);
+      setShowMore(data.posts.length === 9);
     };
     fetchPosts();
   }, [location.search]);
 
   const handleChange = (e) => {
-    if (e.target.id === "searchTerm") {
-      setSidebarData({ ...sidebarData, searchTerm: e.target.value });
-    }
-    if (e.target.id === "sort") {
-      const order = e.target.value || "desc";
-      setSidebarData({ ...sidebarData, sort: order });
-    }
-    if (e.target.id === "category") {
-      const category = e.target.value || "uncategorized";
-      setSidebarData({ ...sidebarData, category });
-    }
+    const { id, value } = e.target;
+    setSidebarData((prev) => ({ ...prev, [id]: value }));
   };
 
   const handleSubmit = (e) => {
@@ -73,40 +56,30 @@ function Search() {
     urlParams.set("searchTerm", sidebarData.searchTerm);
     urlParams.set("sort", sidebarData.sort);
     urlParams.set("category", sidebarData.category);
-    const searchQuery = urlParams.toString();
-    navigate(`/search?${searchQuery}`);
+    navigate(`/search?${urlParams.toString()}`);
   };
 
   const handleShowMore = async () => {
-    const numberOfPosts = posts.length;
-    const startIndex = numberOfPosts;
+    const startIndex = posts.length;
     const urlParams = new URLSearchParams(location.search);
     urlParams.set("startIndex", startIndex);
-    const searchQuery = urlParams.toString();
-    const res = await fetch(`/api/post/getposts?${searchQuery}`);
-    if (!res.ok) {
-      return;
-    }
-    if (res.ok) {
-      const data = await res.json();
-      setPosts([...posts, ...data.posts]);
-      if (data.posts.length === 9) {
-        setShowMore(true);
-      } else {
-        setShowMore(false);
-      }
-    }
+    const res = await fetch(`/api/post/getposts?${urlParams.toString()}`);
+    if (!res.ok) return;
+    const data = await res.json();
+    setPosts([...posts, ...data.posts]);
+    setShowMore(data.posts.length === 9);
   };
 
   return (
     <div className="flex flex-col md:flex-row">
       <div className="p-7 border-b md:border-r md:min-h-screen border-gray-500">
         <form className="flex flex-col gap-8" onSubmit={handleSubmit}>
-          <div className="flex items-center gap-2 ">
-            <label className="whitespace-nowrap font-semibold">
+          <div className="flex items-center gap-2">
+            <label className="whitespace-nowrap font-semibold" htmlFor="searchTerm">
               Search Term:
             </label>
-            <TextInput
+            <input
+              className="border border-gray-300 rounded-md p-2 w-full"
               placeholder="Search..."
               id="searchTerm"
               type="text"
@@ -115,38 +88,43 @@ function Search() {
             />
           </div>
           <div className="flex items-center gap-2">
-            <label className="font-semibold">Sort: </label>
-            <Select onChange={handleChange} value={sidebarData.sort} id="sort">
+            <label className="font-semibold" htmlFor="sort">Sort:</label>
+            <select
+              id="sort"
+              value={sidebarData.sort}
+              onChange={handleChange}
+              className="border border-gray-300 rounded-md p-2"
+            >
               <option value="desc">Latest</option>
               <option value="asc">Oldest</option>
-            </Select>
+            </select>
           </div>
           <div className="flex items-center gap-2">
-            <label className="font-semibold">Category: </label>
-            <Select
-              onChange={handleChange}
-              value={sidebarData.category}
+            <label className="font-semibold" htmlFor="category">Category:</label>
+            <select
               id="category"
+              value={sidebarData.category}
+              onChange={handleChange}
+              className="border border-gray-300 rounded-md p-2"
             >
               <option value="uncategorized">Uncategorized</option>
-              <option value="reactjs">React.js</option>
-              <option value="nextjs">Next.js</option>
-              <option value="javascript">JavaScript</option>
+              <option value="webtechnology">Web Technology</option>
+              <option value="softwaredesignandmodeling">Software Design and Modeling</option>
+              <option value="designandanalysisofalgorithms">Design and Analysis of Algorithms</option>
               <option value="compilerdesign">Compiler Design</option>
               <option value="computernetwork">Computer Network</option>
-              <option value="artificialintelligence">
-                Artificial Intelligence
-              </option>
-              <option value="databasemanagementsystem">
-                Database Management System
-              </option>
-              <option value="cloudcomputing">Cloud Computing</option>
+              <option value="artificialintelligence">Artificial Intelligence</option>
+              <option value="databasemanagementsystem">Database Management System</option>
+              <option value="datascience">Data Science</option>
               <option value="other">Other</option>
-            </Select>
+            </select>
           </div>
-          <Button type="submit" outline gradientDuoTone="purpleToPink">
+          <button
+            type="submit"
+            className="px-4 py-2 bg-gradient-to-r from-purple-500 to-pink-500 text-white rounded-md hover:opacity-90 transition"
+          >
             Apply Filters
-          </Button>
+          </button>
         </form>
       </div>
       <div className="w-full">
