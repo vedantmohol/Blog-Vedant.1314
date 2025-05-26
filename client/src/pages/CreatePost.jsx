@@ -88,16 +88,16 @@ function CreatePost() {
             className="p-2 border rounded"
             onChange={(e) => setFormData({ ...formData, category: e.target.value })}
           >
-            <option value="uncategorized">Select a category</option>
-            <option value="javascript">Javascript</option>
-            <option value="reactjs">React.js</option>
-            <option value="nextjs">Next.js</option>
-            <option value="compilerdesign">Compiler Design</option>
-            <option value="computernetwork">Computer Network</option>
-            <option value="artificialintelligence">Artificial Intelligence</option>
-            <option value="databasemanagementsystem">Database Management System</option>
-            <option value="cloudcomputing">Cloud Computing</option>
-            <option value="other">Other</option>
+            <option value="uncategorized">Uncategorized</option>
+              <option value="webtechnology">Web Technology</option>
+              <option value="softwaredesignandmodeling">Software Design and Modeling</option>
+              <option value="designandanalysisofalgorithms">Design and Analysis of Algorithms</option>
+              <option value="compilerdesign">Compiler Design</option>
+              <option value="computernetwork">Computer Network</option>
+              <option value="artificialintelligence">Artificial Intelligence</option>
+              <option value="databasemanagementsystem">Database Management System</option>
+              <option value="datascience">Data Science</option>
+              <option value="other">Other</option>
           </select>
         </div>
 
